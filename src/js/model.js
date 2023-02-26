@@ -23,5 +23,6 @@ export const loadRecipe = async function(pId) {
         console.error({
             error_model: err.message
         });
+        throw err;
     }
 }
