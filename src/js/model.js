@@ -1,4 +1,5 @@
-import axios from 'axios';
+import {API_URL} from './config';
+import {getJSON} from './helpers';
 
 export const state = {
     recipe: {}
@@ -6,8 +7,8 @@ export const state = {
 
 export const loadRecipe = async function(pId) {
     try {
-        const res = await axios.get(`https://forkify-api.herokuapp.com/api/v2/recipes/${pId}`);
-        let {id, title, publisher, cooking_time: cookingTime, image_url: imageUrl, ingredients, servings, source_url: sourceUrl} = res.data.data.recipe;
+        const data = await getJSON(`${API_URL}/${pId}`);
+        let {id, title, publisher, cooking_time: cookingTime, image_url: imageUrl, ingredients, servings, source_url: sourceUrl} = data.data.data.recipe;
         state.recipe = {
             id,
             title,
@@ -18,11 +19,9 @@ export const loadRecipe = async function(pId) {
             servings,
             sourceUrl
         }
-        console.log(state.recipe);
     } catch(err) {
-        alert(err);
+        console.error({
+            error_model: err.message
+        });
     }
-
-
-
 }
