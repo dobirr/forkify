@@ -30,6 +30,10 @@ class RecipeView {
         this.#parentElement.insertAdjacentHTML('afterbegin', markup)
     }
 
+    addHandlerRender(handler) {
+        ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler));
+    }
+
     #generateMarkup() {
         const {id, title, publisher, cookingTime, imageUrl, ingredients, servings, sourceUrl} =  this.#data
         return `
